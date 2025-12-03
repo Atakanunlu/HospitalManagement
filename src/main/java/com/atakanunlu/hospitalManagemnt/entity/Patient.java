@@ -10,9 +10,11 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Data
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "patient",
@@ -47,4 +49,12 @@ public class Patient {
     @Enumerated(EnumType.STRING)
     private BloodGroupType bloodGroup;
 
+    @OneToOne
+    @JoinColumn(name = "patient_insurance_id") //owing side
+    @ToString.Exclude
+    private Insurance insurance;
+
+    @OneToMany(mappedBy = "patient")
+    @ToString.Exclude
+    private List<Appointment> appointments;
 }
