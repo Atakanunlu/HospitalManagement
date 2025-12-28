@@ -17,15 +17,15 @@ public class InsuranceService {
     private final PatientRepository patientRepository;
 
     @Transactional
-    public Patient assignInsuranceToPatient(Insurance insurance, Long patientId){
+    public Patient assignInsuranceToPatient(Insurance insurance, Long patientId) {
+
         Patient patient = patientRepository.findById(patientId)
                 .orElseThrow(() -> new EntityNotFoundException("Patient not found with id: " + patientId));
 
         patient.setInsurance(insurance);
-
         insurance.setPatient(patient);
 
-        return patient;
+        insuranceRepository.save(insurance);
+        return patientRepository.save(patient);
     }
-
 }

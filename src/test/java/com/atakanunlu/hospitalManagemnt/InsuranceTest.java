@@ -22,28 +22,30 @@ public class InsuranceTest {
     public AppointmentService appointmentService;
 
     @Test
-    public void testInsurance(){
+    public void testInsurance() {
 
         Insurance insurance = Insurance.builder()
                 .policyNumber("POL-12345")
                 .provider("Axa Sigorta")
-                .validUntil(LocalDate.of(2025,12,31))
+                .validUntil(LocalDate.of(2025, 12, 31))
                 .build();
 
         Patient patient = insuranceService.assignInsuranceToPatient(insurance, 1L);
         System.out.println(patient);
-
     }
 
     @Test
-    public void testCreateAppointment(){
+    public void testCreateAppointment() {
+
         Appointment appointment = Appointment.builder()
-                .appointmentTime(LocalDateTime.of(2025, 12,28,14,40))
+                .appointmentTime(LocalDateTime.of(2025, 12, 28, 14, 40))
                 .reason("Cancer")
                 .build();
-        var newAppointment = appointmentService.createNewAppointment(appointment,1L,2L);
+
+        var newAppointment = appointmentService.createNewAppointment(appointment, 1L, 2L);
         System.out.println(newAppointment);
+
+        var updatedAppointment = appointmentService.reAssignAppointmentToAnotherDoctor(newAppointment.getId(), 3L);
+        System.out.println(updatedAppointment);
     }
-
-
 }

@@ -2,10 +2,7 @@ package com.atakanunlu.hospitalManagemnt.entity;
 
 import com.atakanunlu.hospitalManagemnt.entity.type.BloodGroupType;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDate;
@@ -14,17 +11,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Data
-@ToString
+@Getter
+@Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "patient",
-   uniqueConstraints = {
-        //@UniqueConstraint(name = "unique_patient_email", columnNames={"email"}),
-        @UniqueConstraint(name = "unique_patient_name_birthdate", columnNames = {"name","birthDate"})
-   },
+        uniqueConstraints = {
+                @UniqueConstraint(name = "unique_patient_name_birthdate", columnNames = {"name","birthDate"})
+        },
         indexes = {
-        @Index(name = "idx_patient_birth_date", columnList = "birthDate")
+                @Index(name = "idx_patient_birth_date", columnList = "birthDate")
         }
 )
 public class Patient {
@@ -32,10 +29,9 @@ public class Patient {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false,length = 40)
+    @Column(nullable = false, length = 40)
     private String name;
 
-    //@ToString.Exclude
     private LocalDate birthDate;
 
     @Column(unique = true)
@@ -52,8 +48,11 @@ public class Patient {
 
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "patient_insurance_id")
+    @ToString.Exclude
     private Insurance insurance;
 
     @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
+    @ToString.Exclude
+    @Builder.Default
     private List<Appointment> appointments = new ArrayList<>();
 }
