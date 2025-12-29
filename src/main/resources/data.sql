@@ -12,3 +12,12 @@ VALUES
     ('Dr. Atakan', 'Cardiology', 'atakan1@gmail.com'),
     ('Dr. Atakan2', 'Dermatology', 'atakan2@gmail.com'),
     ('Dr. Atakan3', 'Orthopedics', 'atakan3@gmail.com');
+
+INSERT INTO appointment(appointment_time, reason, doctor_id,patient_id)
+VALUES
+    ('2025-12-29 10:30:00', 'General Checkup',1,2),
+    ('2025-12-29 11:30:00', 'Skin Rash',2,2),
+    ('2025-12-29 12:30:00', 'Knee Pain ',3,3),
+    ('2025-12-29 13:30:00', 'Follow-up Visit ',1,1),
+    ('2025-12-29 14:30:00', 'Consultation ',1,4),
+    ('2025-12-29 15:30:00', 'Allergy Treatment ',2,5);
